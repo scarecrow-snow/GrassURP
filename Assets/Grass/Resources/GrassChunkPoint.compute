@@ -9,8 +9,13 @@ struct GrassData {
 };
 
 RWStructuredBuffer<GrassData> _GrassDataBuffer;
+
 Texture2D<float4> _HeightMap;
 SamplerState sampler_HeightMap;
+
+//Texture2D<float4> _SplatMap;
+//SamplerState sampler_SplatMap;
+
 
 int _Dimension, _Scale, _XOffset, _YOffset, _NumChunks, _ChunkDimension;
 float _DisplacementStrength;
@@ -39,6 +44,8 @@ void InitializeGrassChunk(uint3 id : SV_DispatchThreadID) {
         float2 uv = float2(uvX, uvY) / dimension;
         uv.y = 1 - uv.y;
         uv.x = 1 - uv.x;
+
+
 
         float4 displacement = _HeightMap.SampleLevel(sampler_HeightMap, uv, 0);
 
